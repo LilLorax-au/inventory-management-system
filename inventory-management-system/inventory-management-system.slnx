@@ -1,0 +1,15 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="inventory-management-system/inventory-management-system.csproj" Id="a2ccf4c9-5770-4961-9517-352a4c82396f">
+    <Platform Solution="*|ARM" Project="ARM" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Deploy />
+  </Project>
+</Solution>
