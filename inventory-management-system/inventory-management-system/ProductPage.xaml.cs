@@ -26,5 +26,20 @@ namespace inventory_management_system
         {
             this.InitializeComponent();
         }
+
+        private void ActionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

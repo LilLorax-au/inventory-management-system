@@ -26,5 +26,15 @@ namespace inventory_management_system
         {
             this.InitializeComponent();
         }
+
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
