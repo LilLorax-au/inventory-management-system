@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="inventory_management_system.ProductPage"
+    x:Class="inventory_management_system.CustomersPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:inventory_management_system"
@@ -24,48 +24,51 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Padding="10" Margin="45,90,45,45">
             <!--Head-->
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Spacing="20" Margin="10">
-                <TextBlock Text="Products" FontFamily="Calibri" FontSize="60"/>
+                <TextBlock Text="Custormers" FontFamily="Calibri" FontSize="60"/>
             </StackPanel>
             <!--Nav Bar: Top-->
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="10">
-                <Button x:Name="ProductButton" Width="110" Height="40" Content="Products" FontSize="22" FontFamily="Calibri" Background="#FF787878" BorderBrush="#FF757575" BorderThickness="0,0,2,2"/>
-                <Button x:Name="OrdersButton" Width="110" Height="40" Content="Orders" FontSize="22" FontFamily="Calibri" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="OrdersButton_Click"/>
-                <Button x:Name="CustomersButton" Width="110" Height="40" Content="Customers" FontSize="22" FontFamily="Calibri" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,0,2" Click="CustomersButton_Click"/>
+                <Button x:Name="ProductButton" Width="110" Height="40" Content="Products" FontSize="22" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="ProductButton_Click"/>
+                <Button x:Name="OrdersButton" Width="110" Height="40" Content="Orders" FontSize="22" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="OrdersButton_Click"/>
+                <Button x:Name="CustomersButton" Width="110" Height="40" Content="Customers" FontSize="22" FontFamily="Calibri" FontWeight="Bold" Background="#FF787878" BorderBrush="#FF757575" BorderThickness="0,0,0,2"/>
             </StackPanel >
 
             <!--Input Block-->
             <!--Inputs: Combo/ Dropdown-->
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="10">
-                <ComboBox x:Name="ActionComboBox" FontSize="14" FontFamily="Calibri" FontWeight="Bold" SelectionChanged="ActionComboBox_SelectionChanged" SelectedIndex="0" CornerRadius="5">
-                    <ComboBoxItem Content="Add"/>
-                    <ComboBoxItem Content="Update"/>
-                    <ComboBoxItem Content="Show"/>
-                    <ComboBoxItem Content="Delete"/>
-                </ComboBox>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="10">
+                <Button x:Name="AddButton" Width="60" Height="32" Content="Add" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF787878" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="AddButton_Click"/>
+                <Button x:Name="UpdateButton" Width="60" Height="32" Content="Update" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="UpdateButton_Click"/>
+                <Button x:Name="ShowButton" Width="60" Height="32" Content="Show" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="ShowButton_Click"/>
+                <Button x:Name="DeleteButton" Width="60" Height="32" Content="Delete" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,0,2" Click="DeleteButton_Click"/>
+
             </StackPanel>
             <!--Inputs: Text-->
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
-                <!--Input: Product ID-->
+                <!--Input: Customer ID-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
-                    <TextBlock Text="Product ID" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productIdTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" />
+                    <TextBlock Text="Customer ID" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="CustomerIdTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" PlaceholderText="e.g. 1101" IsEnabled="False" />
                 </StackPanel>
-                <!--Input: Product Name-->
+                <!--Input: First and Last Name-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
-                    <TextBlock Text="Product Name" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productNameTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
+                    <TextBlock Text="Name" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBox x:Name="FirstNameTextBox" FontSize="14" FontFamily="Calibri" Width="100" CornerRadius="5,5,5,5" PlaceholderText="First"/>
+                        <TextBox x:Name="LastNameTextBox" FontSize="14" FontFamily="Calibri" Width="100" CornerRadius="5,5,5,5" PlaceholderText="Last"/>
+                    </StackPanel>
                 </StackPanel>
-                <!--Input: Product Cost-->
+                <!--Input: Email-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
-                    <TextBlock Text="Product Cost" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productCostTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
+                    <TextBlock Text="Email" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="EmailTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" PlaceholderText="someone@somewhere.com"/>
                 </StackPanel>
                 <!--Input: Product Quantity-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
-                    <TextBlock Text="Product Quantity" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productQuantityTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
+                    <TextBlock Text="Phone" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
+                    <TextBox x:Name="PhoneTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" PlaceholderText="Phone number"/>
                 </StackPanel>
-                <!--Input: Buttons-->
+
+                    <!--Input: Buttons-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="10"  Margin="10">
                     <Button x:Name="EnterButton" Content="Enter" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF1C1D1D" CornerRadius="5" BorderBrush="#FF787878" Click="EnterButton_Click"></Button>
                     <Button x:Name="ClearButton" Content="Clear" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF1C1D1D" CornerRadius="5" BorderBrush="#FF787878" Click="ClearButton_Click"></Button>

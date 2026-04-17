@@ -20,11 +20,21 @@ namespace inventory_management_system
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ProductPage : Page
+    public sealed partial class OrdersPage : Page
     {
-        public ProductPage()
+        public OrdersPage()
         {
             this.InitializeComponent();
+        }
+
+        private void ProductButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CustomersButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void ActionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -38,16 +48,6 @@ namespace inventory_management_system
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OrdersButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CustomersButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

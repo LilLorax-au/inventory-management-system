@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -20,6 +21,7 @@ namespace inventory_management_system
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
+    
     public sealed partial class LogInPage : Page
     {
         public LogInPage()
@@ -27,14 +29,32 @@ namespace inventory_management_system
             this.InitializeComponent();
         }
 
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        private async void EnterButton_Click(object sender, RoutedEventArgs e)
         {
-
+            App.localUser = (User.TryCreateUser(UserNameTextBox.Text) != null ) ? (User) User.TryCreateUser(UserNameTextBox.Text) : null;
+            if (App.localUser == null)
+            {
+                var popUp = new MessageDialog("UserName: " + UserNameTextBox.Text + " Does not exsit");
+                await popUp.ShowAsync();
+                ClearAll();
+            }
+            else
+            {
+                Frame.Navigate(typeof(ProductPage));
+            }
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
+            ClearAll();
+        }
 
+        private void ClearAll()
+        {
+            UserNameTextBox.Text = "";
+            PasswordTextBox.Text = "";
+
+            UserNameTextBox.Focus(FocusState.Programmatic);
         }
     }
 }

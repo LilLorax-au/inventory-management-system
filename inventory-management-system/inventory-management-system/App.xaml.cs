@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 namespace inventory_management_system
 {
     /// <summary>
@@ -26,6 +27,9 @@ namespace inventory_management_system
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        // Current User
+        public static User localUser;
+        
         public App()
         {
             this.InitializeComponent();
