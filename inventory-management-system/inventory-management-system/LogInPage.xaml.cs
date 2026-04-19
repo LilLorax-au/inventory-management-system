@@ -40,7 +40,16 @@ namespace inventory_management_system
             }
             else
             {
-                Frame.Navigate(typeof(ProductPage));
+                if (App.localUser.Check_Password(PasswordTextBox.Text))
+                {
+                    Frame.Navigate(typeof(ProductPage));
+                }
+                else
+                {
+                    var popUp = new MessageDialog("Password Incorrect");
+                    await popUp.ShowAsync();
+                }
+
             }
         }
 

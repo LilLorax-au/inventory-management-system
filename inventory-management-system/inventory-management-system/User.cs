@@ -29,24 +29,21 @@ namespace inventory_management_system
             this.userName = userName;
         }
 
-        //public bool Check_Password(String password)
-        //{
-        //    bool isPasswordRight;
+        public bool Check_Password(String password)
+        {
+           bool isPasswordRight;
 
-        //    if (password == MASTER_PASSWORD)
-        //    {
-        //        isPasswordRight = true;
-        //        var popUp = new MessageDialog("Successfully loged in as: " + this.userName);
-        //        await popUp.ShowAsync();
-        //    }
-        //    else
-        //    {
-        //        var popUp = new MessageDialog("Password Incorrect");
-        //        await popUp.ShowAsync();
-        //    }
-        //    return;
+           if (password == MASTER_PASSWORD)
+           {
+               isPasswordRight = true;
+           }
+           else
+           {
+               isPasswordRight = false;
+           }
+           return isPasswordRight;
 
-        //}
+        }
 
         public static object TryCreateUser(String userName)
         {
