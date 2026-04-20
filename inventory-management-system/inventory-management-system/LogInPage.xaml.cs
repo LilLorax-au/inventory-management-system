@@ -48,6 +48,9 @@ namespace inventory_management_system
                 {
                     var popUp = new MessageDialog("Password Incorrect");
                     await popUp.ShowAsync();
+                    PasswordTextBox.Text = "";
+                    PasswordTextBox.Focus(FocusState.Programmatic);
+
                 }
 
             }
