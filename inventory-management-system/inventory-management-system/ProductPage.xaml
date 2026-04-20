@@ -34,14 +34,12 @@
             </StackPanel >
 
             <!--Input Block-->
-            <!--Inputs: Combo/ Dropdown-->
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="10">
-                <ComboBox x:Name="ActionComboBox" FontSize="14" FontFamily="Calibri" FontWeight="Bold" SelectionChanged="ActionComboBox_SelectionChanged" SelectedIndex="0" CornerRadius="5">
-                    <ComboBoxItem Content="Add"/>
-                    <ComboBoxItem Content="Update"/>
-                    <ComboBoxItem Content="Show"/>
-                    <ComboBoxItem Content="Delete"/>
-                </ComboBox>
+            <!--Inputs Buttons for database interaction-->
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="10">
+                <Button x:Name="AddButton" Width="60" Height="32" Content="Add" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF787878" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="AddButton_Click"/>
+                <Button x:Name="UpdateButton" Width="60" Height="32" Content="Update" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="UpdateButton_Click"/>
+                <Button x:Name="ShowButton" Width="60" Height="32" Content="Show" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="ShowButton_Click"/>
+                <Button x:Name="DeleteButton" Width="60" Height="32" Content="Delete" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,0,2" Click="DeleteButton_Click"/>
             </StackPanel>
             <!--Inputs: Text-->
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">

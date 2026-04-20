@@ -34,7 +34,7 @@
             </StackPanel >
 
             <!--Input Block-->
-            <!--Inputs: Combo/ Dropdown-->
+            <!--Inputs Buttons for database interaction-->
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="10">
                 <Button x:Name="AddButton" Width="60" Height="32" Content="Add" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF787878" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="AddButton_Click"/>
                 <Button x:Name="UpdateButton" Width="60" Height="32" Content="Update" FontSize="14" FontFamily="Calibri" FontWeight="Bold" Background="#FF2F3030" BorderBrush="#FF757575" BorderThickness="0,0,2,2" Click="UpdateButton_Click"/>

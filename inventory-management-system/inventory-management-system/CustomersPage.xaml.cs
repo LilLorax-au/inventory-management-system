@@ -29,25 +29,16 @@ namespace inventory_management_system
 
         private void ProductButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(ProductPage));
         }
 
         private void OrdersButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(CustomersPage));
         }
 
 
 
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -91,6 +82,25 @@ namespace inventory_management_system
             LastNameTextBox.IsEnabled = false;
             EmailTextBox.IsEnabled = false;
             PhoneTextBox.IsEnabled = false;
+        }
+        private void ClearAll()
+        {
+            CustomerIdTextBox.Text = "";
+            FirstNameTextBox.Text = "";
+            LastNameTextBox.Text = "";
+            EmailTextBox.Text = "";
+            PhoneTextBox.Text = "";
+
+            FirstNameTextBox.Focus(FocusState.Programmatic);
+        }
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClearAll();
         }
     }
 }

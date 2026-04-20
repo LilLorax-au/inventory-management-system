@@ -29,19 +29,43 @@ namespace inventory_management_system
 
         private void ProductButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(ProductPage));
         }
 
         private void CustomersButton_Click(object sender, RoutedEventArgs e)
         {
+            Frame.Navigate(typeof(CustomersPage));
+        }
+
+
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            OrderIdTextBox.IsEnabled = true;
+            CustomerIdTextBox.IsEnabled = true;
+            ProductIdOneTextBox.IsEnabled = true;
+            ProductIdTwoTextBox.IsEnabled = true;
+            ProductIdThreeTextBox.IsEnabled = true;
+            QuantityOneTextBox.IsEnabled = true;
+            QuantityTwoTextBox.IsEnabled = true;
+
 
         }
 
-        private void ActionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        private void ShowButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -49,7 +73,20 @@ namespace inventory_management_system
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ClearAll();
         }
+
+        private void ClearAll()
+        {
+            OrderIdTextBox.Text = "";
+            CustomerIdTextBox.Text = "";
+            ProductIdOneTextBox.Text = "";
+            ProductIdTwoTextBox.Text = "";
+            ProductIdThreeTextBox.Text = "";
+            QuantityOneTextBox.Text = "";
+            QuantityTwoTextBox.Text = "";
+        }
+
+
     }
 }
