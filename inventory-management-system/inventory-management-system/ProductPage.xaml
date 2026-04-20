@@ -46,22 +46,22 @@
                 <!--Input: Product ID-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
                     <TextBlock Text="Product ID" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productIdTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" />
+                    <TextBox x:Name="ProductIdTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" />
                 </StackPanel>
                 <!--Input: Product Name-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
                     <TextBlock Text="Product Name" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productNameTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
+                    <TextBox x:Name="ProductNameTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
                 </StackPanel>
                 <!--Input: Product Cost-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
                     <TextBlock Text="Product Cost" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productCostTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
+                    <TextBox x:Name="ProductCostTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
                 </StackPanel>
                 <!--Input: Product Quantity-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
                     <TextBlock Text="Product Quantity" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="productQuantityTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
+                    <TextBox x:Name="ProductQuantityTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5"/>
                 </StackPanel>
                 <!--Input: Buttons-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="10"  Margin="10">

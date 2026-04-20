@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -25,16 +26,17 @@ namespace inventory_management_system
         public OrdersPage()
         {
             this.InitializeComponent();
+            ClearAll();
         }
 
         private void ProductButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ProductPage));
+            Frame.Navigate(typeof(ProductPage), null, new SuppressNavigationTransitionInfo());
         }
 
         private void CustomersButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(CustomersPage));
+            Frame.Navigate(typeof(CustomersPage), null, new SuppressNavigationTransitionInfo());
         }
 
 
@@ -48,23 +50,39 @@ namespace inventory_management_system
             ProductIdThreeTextBox.IsEnabled = true;
             QuantityOneTextBox.IsEnabled = true;
             QuantityTwoTextBox.IsEnabled = true;
-
-
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OrderIdTextBox.IsEnabled = true;
+            CustomerIdTextBox.IsEnabled = true;
+            ProductIdOneTextBox.IsEnabled = true;
+            ProductIdTwoTextBox.IsEnabled = true;
+            ProductIdThreeTextBox.IsEnabled = true;
+            QuantityOneTextBox.IsEnabled = true;
+            QuantityTwoTextBox.IsEnabled = true;
         }
 
         private void ShowButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OrderIdTextBox.IsEnabled = true;
+            CustomerIdTextBox.IsEnabled = true;
+            ProductIdOneTextBox.IsEnabled = true;
+            ProductIdTwoTextBox.IsEnabled = true;
+            ProductIdThreeTextBox.IsEnabled = true;
+            QuantityOneTextBox.IsEnabled = true;
+            QuantityTwoTextBox.IsEnabled = true;
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OrderIdTextBox.IsEnabled = true;
+            CustomerIdTextBox.IsEnabled = true;
+            ProductIdOneTextBox.IsEnabled = true;
+            ProductIdTwoTextBox.IsEnabled = true;
+            ProductIdThreeTextBox.IsEnabled = true;
+            QuantityOneTextBox.IsEnabled = true;
+            QuantityTwoTextBox.IsEnabled = true;
         }
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
@@ -85,6 +103,13 @@ namespace inventory_management_system
             ProductIdThreeTextBox.Text = "";
             QuantityOneTextBox.Text = "";
             QuantityTwoTextBox.Text = "";
+
+            OutputTextBox.Text = "";
+        }
+
+        private void UpdateOutput(String textToOutput)
+        {
+            OutputTextBox.Text = textToOutput;
         }
 
 

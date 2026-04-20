@@ -29,11 +29,36 @@ namespace inventory_management_system
         /// </summary>
         // Current User
         public static User localUser;
-        
+        public struct ARGBBuilder
+        {
+            public byte A;
+            public byte R;
+            public byte G;
+            public byte B;
+
+            public ARGBBuilder(byte A, byte R, byte G, byte B)
+            {
+                this.A = A;
+                this.R = R;
+                this.G = G;
+                this.B = B;
+            }
+        }
+        public static ARGBBuilder buttonSet;
+        public static ARGBBuilder buttonUnset;
+
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            BuildColor();
+        }
+
+        private void BuildColor()
+        {
+            buttonSet = new ARGBBuilder(255, 120, 120, 120); 
+            buttonUnset = new ARGBBuilder(255, 47, 48, 48); 
+         
         }
 
         /// <summary>
@@ -70,7 +95,7 @@ namespace inventory_management_system
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(LogInPage), e.Arguments);
+                    rootFrame.Navigate(typeof(ProductPage), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();

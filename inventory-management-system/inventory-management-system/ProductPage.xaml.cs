@@ -11,7 +11,9 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,31 +27,18 @@ namespace inventory_management_system
         public ProductPage()
         {
             this.InitializeComponent();
+            ClearAll();
         }
 
-        private void ActionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void OrdersButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(OrdersPage), null, new SuppressNavigationTransitionInfo());
         }
 
         private void CustomersButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof(CustomersPage), null, new SuppressNavigationTransitionInfo());
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -70,6 +59,24 @@ namespace inventory_management_system
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ClearAll()
+        {
+            ProductIdTextBox.Text = "";   
+            ProductNameTextBox.Text = "";   
+            ProductCostTextBox.Text = "";   
+            ProductQuantityTextBox.Text = "";
+
+            OutputTextBox.Text = "";
         }
     }
 }
