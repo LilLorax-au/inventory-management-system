@@ -29,6 +29,7 @@ namespace inventory_management_system
         /// </summary>
         // Current User
         public static User localUser;
+        public static DatabaseService database;
         public struct ARGBBuilder
         {
             public byte A;
@@ -52,6 +53,8 @@ namespace inventory_management_system
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             BuildColor();
+            
+
         }
 
         private void BuildColor()
@@ -95,7 +98,7 @@ namespace inventory_management_system
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(ProductPage), e.Arguments);
+                    rootFrame.Navigate(typeof(LogInPage), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
