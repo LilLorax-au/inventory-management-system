@@ -26,9 +26,13 @@ namespace inventory_management_system
 
     public sealed partial class CustomersPage : Page
     {
+            SolidColorBrush colorSetBrush;
+            SolidColorBrush colorUnsetBrush;
+
         public CustomersPage()
         {
             this.InitializeComponent();
+            ARGBUnpacker();
             ClearAll();
         }
 
@@ -44,13 +48,11 @@ namespace inventory_management_system
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            App.ARGBBuilder tempColorSet = App.buttonSet;
-            App.ARGBBuilder tempColorUnset = App.buttonUnset;
 
-            AddButton.Background = new SolidColorBrush(Color.FromArgb(tempColorSet.A,tempColorSet.R,tempColorSet.G,tempColorSet.B));
-            UpdateButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A,tempColorUnset.R,tempColorUnset.G,tempColorUnset.B));
-            ShowButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A,tempColorUnset.R,tempColorUnset.G,tempColorUnset.B));
-            DeleteButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A,tempColorUnset.R,tempColorUnset.G,tempColorUnset.B));
+            AddButton.Background = colorSetBrush;
+            UpdateButton.Background = colorUnsetBrush;
+            ShowButton.Background = colorUnsetBrush;
+            DeleteButton.Background = colorUnsetBrush;
             CustomerIdTextBox.IsEnabled = false;
             FirstNameTextBox.IsEnabled = true;
             LastNameTextBox.IsEnabled = true;
@@ -63,13 +65,10 @@ namespace inventory_management_system
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            App.ARGBBuilder tempColorSet = App.buttonSet;
-            App.ARGBBuilder tempColorUnset = App.buttonUnset;
-
-            AddButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A, tempColorUnset.R, tempColorUnset.G, tempColorUnset.B));
-            UpdateButton.Background = new SolidColorBrush(Color.FromArgb(tempColorSet.A, tempColorSet.R, tempColorSet.G, tempColorSet.B));
-            ShowButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A,tempColorUnset.R,tempColorUnset.G,tempColorUnset.B));
-            DeleteButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A,tempColorUnset.R,tempColorUnset.G,tempColorUnset.B));
+            AddButton.Background = colorUnsetBrush;
+            UpdateButton.Background = colorSetBrush;
+            ShowButton.Background = colorUnsetBrush;
+            DeleteButton.Background = colorUnsetBrush;
             
             CustomerIdTextBox.IsEnabled = true;
             FirstNameTextBox.IsEnabled = true;
@@ -82,13 +81,10 @@ namespace inventory_management_system
 
         private void ShowButton_Click(object sender, RoutedEventArgs e)
         {
-            App.ARGBBuilder tempColorSet = App.buttonSet;
-            App.ARGBBuilder tempColorUnset = App.buttonUnset;
-
-            AddButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A, tempColorUnset.R, tempColorUnset.G, tempColorUnset.B));
-            UpdateButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A, tempColorUnset.R, tempColorUnset.G, tempColorUnset.B));
-            ShowButton.Background = new SolidColorBrush(Color.FromArgb(tempColorSet.A, tempColorSet.R, tempColorSet.G, tempColorSet.B));
-            DeleteButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A,tempColorUnset.R,tempColorUnset.G,tempColorUnset.B));
+            AddButton.Background = colorUnsetBrush;
+            UpdateButton.Background = colorUnsetBrush;
+            ShowButton.Background = colorSetBrush;
+            DeleteButton.Background = colorUnsetBrush;
 
             CustomerIdTextBox.IsEnabled = true;
             FirstNameTextBox.IsEnabled = true;
@@ -102,13 +98,10 @@ namespace inventory_management_system
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            App.ARGBBuilder tempColorSet = App.buttonSet;
-            App.ARGBBuilder tempColorUnset = App.buttonUnset;
-
-            AddButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A, tempColorUnset.R, tempColorUnset.G, tempColorUnset.B));
-            UpdateButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A, tempColorUnset.R, tempColorUnset.G, tempColorUnset.B));
-            ShowButton.Background = new SolidColorBrush(Color.FromArgb(tempColorUnset.A,tempColorUnset.R,tempColorUnset.G,tempColorUnset.B));
-            DeleteButton.Background = new SolidColorBrush(Color.FromArgb(tempColorSet.A, tempColorSet.R, tempColorSet.G, tempColorSet.B));
+            AddButton.Background = colorUnsetBrush;
+            UpdateButton.Background = colorUnsetBrush;
+            ShowButton.Background = colorUnsetBrush;
+            DeleteButton.Background = colorSetBrush;
 
             CustomerIdTextBox.IsEnabled = true;
             FirstNameTextBox.IsEnabled = false;
@@ -138,6 +131,12 @@ namespace inventory_management_system
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             ClearAll();
+        }
+
+        private void ARGBUnpacker()
+        {
+            this.colorSetBrush = new SolidColorBrush(Color.FromArgb(App.buttonSet.A, App.buttonSet.R, App.buttonSet.G, App.buttonSet.B));
+            this.colorUnsetBrush = new SolidColorBrush(Color.FromArgb(App.buttonUnset.A, App.buttonUnset.R, App.buttonUnset.G, App.buttonUnset.B));
         }
     }
 }
