@@ -34,6 +34,7 @@ namespace inventory_management_system
             this.InitializeComponent();
             ARGBUnpacker();
             ClearAll();
+            UpdateOutput("Input all inputs to create a new user, Customer ID will be auto created.");
         }
 
         private void ProductButton_Click(object sender, RoutedEventArgs e)
@@ -48,18 +49,18 @@ namespace inventory_management_system
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
             AddButton.Background = colorSetBrush;
             UpdateButton.Background = colorUnsetBrush;
             ShowButton.Background = colorUnsetBrush;
             DeleteButton.Background = colorUnsetBrush;
+
             CustomerIdTextBox.IsEnabled = false;
             FirstNameTextBox.IsEnabled = true;
             LastNameTextBox.IsEnabled = true;
             EmailTextBox.IsEnabled = true;
             PhoneTextBox.IsEnabled = true;
 
-            OutputTextBox.Text = "Fill all inputs to create a new user";
+            UpdateOutput("Input all inputs to create a new user, Customer ID will be auto created.");
 
         }
 
@@ -76,7 +77,7 @@ namespace inventory_management_system
             EmailTextBox.IsEnabled = true;
             PhoneTextBox.IsEnabled = true;
 
-            OutputTextBox.Text = "Fill all inputs to update customers";
+            UpdateOutput("Input all inputs to update customers, for values you want to keep the same, assure the field matches existing data.");
         }
 
         private void ShowButton_Click(object sender, RoutedEventArgs e)
@@ -87,13 +88,12 @@ namespace inventory_management_system
             DeleteButton.Background = colorUnsetBrush;
 
             CustomerIdTextBox.IsEnabled = true;
-            FirstNameTextBox.IsEnabled = true;
-            LastNameTextBox.IsEnabled = true;
-            EmailTextBox.IsEnabled = true;
-            PhoneTextBox.IsEnabled = true;
+            FirstNameTextBox.IsEnabled = false;
+            LastNameTextBox.IsEnabled = false;
+            EmailTextBox.IsEnabled = false;
+            PhoneTextBox.IsEnabled = false;
 
-
-            OutputTextBox.Text = "Fill all inputs to display customer";
+            UpdateOutput("Input customer ID to display customer details.");
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -109,7 +109,7 @@ namespace inventory_management_system
             EmailTextBox.IsEnabled = false;
             PhoneTextBox.IsEnabled = false;
 
-            OutputTextBox.Text = "Input Customers Id to delete, this cannot be undone";
+            UpdateOutput("Input Customers Id to delete, this cannot be undone.");
         }
         private void ClearAll()
         {
@@ -131,6 +131,10 @@ namespace inventory_management_system
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             ClearAll();
+        }
+        private void UpdateOutput(String textToOutput)
+        {
+            OutputTextBox.Text = textToOutput;
         }
 
         private void ARGBUnpacker()

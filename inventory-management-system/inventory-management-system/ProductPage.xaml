@@ -46,7 +46,7 @@
                 <!--Input: Product ID-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
                     <TextBlock Text="Product ID" FontSize="14" FontFamily="Calibri" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="ProductIdTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" />
+                    <TextBox x:Name="ProductIdTextBox" FontSize="14" FontFamily="Calibri" Width="200" CornerRadius="0,5,5,5" IsEnabled="False"/>
                 </StackPanel>
                 <!--Input: Product Name-->
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Vertical" Margin="10">
