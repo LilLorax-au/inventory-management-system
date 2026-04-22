@@ -52,7 +52,9 @@ namespace inventory_management_system
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            BuildColor();
+            this.BuildColor();
+            database = DatabaseService.Instance;
+
             
 
         }

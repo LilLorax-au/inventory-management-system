@@ -16,8 +16,7 @@ namespace inventory_management_system
         private static DatabaseService instance;
         private SqliteConnection connection;
         private String sqlSchema;
-
-
+        public String testString;
 
         public static DatabaseService Instance
         {
@@ -43,10 +42,14 @@ namespace inventory_management_system
 
             connection.Open();
 
-            var command = connection.CreateCommand();
-            command.CommandText = sqlSchema;
-            command.ExecuteNonQuery();
-            
+            String[] commands = SchemeBuilder().Split(";");
+            foreach (String cmd in commands)
+            {
+                var command = new SqliteCommand(cmd,connection);
+                command.ExecuteNonQuery();
+            }
+
+            testString = "This is working";
 
         }
 
@@ -56,47 +59,68 @@ namespace inventory_management_system
 
             schema = @"
 
-PRAGMA foreign_keys = ON;
+                PRAGMA foreign_keys = ON;
 
-DROP TABLE IF NOT EXSITS products;
-DROP TABLE IF NOT EXSITS products_orders;
-DROP TABLE IF NOT EXSITS orders;
-DROP TABLE IF NOT EXSITS customers;
+                DROP TABLE IF EXISTS products;
+                DROP TABLE IF EXISTS customers;
+                DROP TABLE IF EXISTS orders;
+                DROP TABLE IF EXISTS products_orders;
                         
-CREATE TABLE IF NOT EXSITS products(
-product_id INT PRIMARY KEY NOT NULL,
-product_name TEXT NOT NULL,
-product_cost FLOAT NOT NULL,
-product_quantity INT NOT NULL
-);
+                CREATE TABLE IF NOT EXISTS products(
+                product_id INTEGER PRIMARY KEY NOT NULL,
+                product_name TEXT NOT NULL,
+                product_cost REAL NOT NULL,
+                product_quantity INT NOT NULL
+                );
 
-CREATE TABLE IF NOT EXSITS customers(
-customer_id INT PRIMARY KEY NOT NULL,
-customer_name TEXT NOT NULL,
-customer_email TEXT NOT NULL,
-customer_phone TEXT NOT NULL
-);
+                CREATE TABLE IF NOT EXISTS customers(
+                customer_id INTEGER PRIMARY KEY NOT NULL,
+                customer_name TEXT NOT NULL,
+                customer_email TEXT NOT NULL,
+                customer_phone TEXT NOT NULL
+                );
 
-CREATE TABLE IF NOT EXSITS orders(
-order_id INT PRIMARY KEY NOT NULL,
-order_cost FLOAT NOT NULL,
-customer_id INT NOT NULL,
-FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
-);
+                CREATE TABLE IF NOT EXISTS orders(
+                order_id INTEGER PRIMARY KEY NOT NULL,
+                order_cost REAL NOT NULL,
+                customer_id INT NOT NULL,
+                FOREIGN KEY (customer_id) REFERENCES customers (customer_id)
+                );
 
-CREATE TABLE IF NOT EXSITS products_orders(
-product_order_id INT PRIMARY KEY NOT NULL,
-order_id INT NOT NULL,
-product_id INT NOT NULL,
-product_order_quantity INT NOT NULL,
-FOREIGN KEY (order_id) REFERENCES orders (order_id),
-FORGIGN KEY (product_id) REFERENCES products (product_id)
-);";
-
-                    
-
-
+                CREATE TABLE IF NOT EXISTS products_orders(
+                product_order_id INTEGER PRIMARY KEY NOT NULL,
+                order_id INT NOT NULL,
+                product_id INT NOT NULL,
+                product_order_quantity INT NOT NULL,
+                FOREIGN KEY (order_id) REFERENCES orders (order_id),
+                FOREIGN KEY (product_id) REFERENCES products (product_id)
+                );";
+            
             return schema;
+        }
+
+        public bool insertStatment(User user, String[] statments)
+        {
+
+            String permissonRequiered = User.PERMISSONS_POSSIBLE[1];
+            
+            if (user.checkPermisson(permissonRequiered))
+            {
+                try
+                {
+
+                }
+                catch (Exception e)
+                {
+                    return false;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }

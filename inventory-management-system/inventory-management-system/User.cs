@@ -17,7 +17,7 @@ namespace inventory_management_system
         private static readonly String[] USERS = {"root","isaac","taliah","kehlani","flora"};
         // This Needs to be changed
         private const String MASTER_PASSWORD = "password123";
-        private static readonly String[] PERMISSONS_POSSIBLE = {"select","insert","update","delete" };
+        public static readonly String[] PERMISSONS_POSSIBLE = {"select","insert","update","delete" };
 
         // Part of TODO
         private const String FILEPATH = "passwd.txt";
@@ -89,6 +89,17 @@ namespace inventory_management_system
             return localPermissons;
         }
 
+        public bool checkPermisson(String permisson)
+        {
+            if (this.permissons.Contains(permisson))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         // TODO create encypt for psswrds
         public static void WriteToFile()
         {

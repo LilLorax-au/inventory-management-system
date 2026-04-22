@@ -12,4 +12,5 @@
     <Platform Solution="*|x86" Project="x86" />
     <Deploy />
   </Project>
+  <Project Path="TestingConsoleApp/TestingConsoleApp.csproj" Id="91f249bb-6721-466f-a47a-2f4559b095d6" />
 </Solution>
