@@ -26,8 +26,10 @@ namespace inventory_management_system
 
     public sealed partial class CustomersPage : Page
     {
-            SolidColorBrush colorSetBrush;
-            SolidColorBrush colorUnsetBrush;
+        SolidColorBrush colorSetBrush;
+        SolidColorBrush colorUnsetBrush;
+        DatabaseService database;
+        String buttonState;
 
         public CustomersPage()
         {
@@ -35,6 +37,8 @@ namespace inventory_management_system
             ARGBUnpacker();
             ClearAll();
             UpdateOutput("Input all inputs to create a new user, Customer ID will be auto created.");
+            database = App.database;
+            buttonState = "add";
         }
 
         private void ProductButton_Click(object sender, RoutedEventArgs e)
@@ -60,8 +64,9 @@ namespace inventory_management_system
             EmailTextBox.IsEnabled = true;
             PhoneTextBox.IsEnabled = true;
 
-            UpdateOutput("Input all inputs to create a new user, Customer ID will be auto created.");
+            buttonState = "add";
 
+            UpdateOutput("Input all inputs to create a new user, Customer ID will be auto created.");
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
@@ -76,6 +81,8 @@ namespace inventory_management_system
             LastNameTextBox.IsEnabled = true;
             EmailTextBox.IsEnabled = true;
             PhoneTextBox.IsEnabled = true;
+
+            buttonState = "update";
 
             UpdateOutput("Input all inputs to update customers, for values you want to keep the same, assure the field matches existing data.");
         }
@@ -93,6 +100,8 @@ namespace inventory_management_system
             EmailTextBox.IsEnabled = false;
             PhoneTextBox.IsEnabled = false;
 
+            buttonState = "show";
+            
             UpdateOutput("Input customer ID to display customer details.");
         }
 
@@ -108,6 +117,8 @@ namespace inventory_management_system
             LastNameTextBox.IsEnabled = false;
             EmailTextBox.IsEnabled = false;
             PhoneTextBox.IsEnabled = false;
+
+            buttonState = "del";
 
             UpdateOutput("Input Customers Id to delete, this cannot be undone.");
         }
@@ -125,7 +136,24 @@ namespace inventory_management_system
         }
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            switch (buttonState)
+            {
+                case "add":
 
+                    break;
+
+                case "update":
+
+                    break;
+
+                case "show":
+
+                    break;
+
+                case "del":
+
+                    break;
+            }
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)

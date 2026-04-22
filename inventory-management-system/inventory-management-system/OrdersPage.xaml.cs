@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -26,12 +27,16 @@ namespace inventory_management_system
     {
         SolidColorBrush colorSetBrush;
         SolidColorBrush colorUnsetBrush;
+        DatabaseService database;
+        String buttonState;
         public OrdersPage()
         {
             this.InitializeComponent();
             ARGBUnpacker();
             ClearAll();
             UpdateOutput("Input your desiered fields, each order can only have three Products");
+            database = App.database;
+            buttonState = "add";
         }
 
         private void ProductButton_Click(object sender, RoutedEventArgs e)
@@ -62,6 +67,8 @@ namespace inventory_management_system
             QuantityTwoTextBox.IsEnabled = true;
             QuantityThreeTextBox.IsEnabled = true;
 
+            buttonState = "add";
+
             UpdateOutput("Input your desiered fields, each order can only have three Products");
         }
 
@@ -80,6 +87,8 @@ namespace inventory_management_system
             QuantityOneTextBox.IsEnabled = true;
             QuantityTwoTextBox.IsEnabled = true;
             QuantityThreeTextBox.IsEnabled = true;
+
+            buttonState = "update";
 
             UpdateOutput("Input all fields, Products you want removed; set the quanity to 0");
         }
@@ -100,6 +109,8 @@ namespace inventory_management_system
             QuantityTwoTextBox.IsEnabled = false;
             QuantityThreeTextBox.IsEnabled = false;
 
+            buttonState = "show";
+
             UpdateOutput("Input Order ID for a display the order details.");
         }
 
@@ -119,10 +130,30 @@ namespace inventory_management_system
             QuantityTwoTextBox.IsEnabled = true;
             QuantityThreeTextBox.IsEnabled = true;
 
+            buttonState = "del";
+
             UpdateOutput("Input Order ID to delete Order, this cannot be undone.");
         }
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            switch (buttonState)
+            {
+                case "add":
+
+                    break;
+
+                case "update":
+
+                    break;
+
+                case "show":
+
+                    break;
+
+                case "del":
+
+                    break;
+            }
 
         }
 

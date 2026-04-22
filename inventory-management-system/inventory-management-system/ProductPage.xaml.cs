@@ -27,12 +27,16 @@ namespace inventory_management_system
     {
         SolidColorBrush colorSetBrush;
         SolidColorBrush colorUnsetBrush;
+        DatabaseService database;
+        String buttonState;
         public ProductPage()
         {
             this.InitializeComponent();
             ARGBUnpacker();
             ClearAll();
             UpdateOutput("Input all fields to create new Product, Product ID will be auto set.");
+            database = App.database;
+            buttonState = "add";
         }
 
 
@@ -58,6 +62,8 @@ namespace inventory_management_system
             ProductCostTextBox.IsEnabled = true;
             ProductQuantityTextBox.IsEnabled = true;
 
+            buttonState = "add";
+
             UpdateOutput("Input all fields to create new Product, Product ID will be auto set.");
 
         }
@@ -74,6 +80,8 @@ namespace inventory_management_system
             ProductCostTextBox.IsEnabled = true;
             ProductQuantityTextBox.IsEnabled = true;
 
+            buttonState = "update";
+
             UpdateOutput("Input all fields to update Product. For what you want to keep the same, assure the field matches existing data.");
         }
 
@@ -88,6 +96,8 @@ namespace inventory_management_system
             ProductNameTextBox.IsEnabled = false;
             ProductCostTextBox.IsEnabled = false;
             ProductQuantityTextBox.IsEnabled = false;
+
+            buttonState = "show";
 
             UpdateOutput("Input Product ID for a display of Product.");
         }
@@ -104,12 +114,30 @@ namespace inventory_management_system
             ProductCostTextBox.IsEnabled = false;
             ProductQuantityTextBox.IsEnabled = false;
 
-            UpdateOutput("Input Product ID to delete product, this cannot be undone.");
+            buttonState = "del";
 
+            UpdateOutput("Input Product ID to delete product, this cannot be undone.");
         }
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            switch (buttonState)
+            {
+                case "add":
 
+                    break;
+
+                case "update":
+
+                    break;
+
+                case "show":
+
+                    break;
+
+                case "del":
+
+                    break;
+            }
 
         }
         private void ClearButton_Click(object sender, RoutedEventArgs e)

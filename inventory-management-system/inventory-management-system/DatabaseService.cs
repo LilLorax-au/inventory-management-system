@@ -1,10 +1,12 @@
 ﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 
 namespace inventory_management_system
@@ -49,7 +51,7 @@ namespace inventory_management_system
                 command.ExecuteNonQuery();
             }
 
-            testString = "This is working";
+            connection.Close();
 
         }
 
@@ -99,7 +101,7 @@ namespace inventory_management_system
             return schema;
         }
 
-        public bool insertStatment(User user, String[] statments)
+        public MessageDialog PassStatment(User user, String statments)
         {
 
             String permissonRequiered = User.PERMISSONS_POSSIBLE[1];
@@ -108,17 +110,23 @@ namespace inventory_management_system
             {
                 try
                 {
-
+                    connection.Open();
+                    String[] commands = statments.Split(";");
+                    foreach (String cmd in commands)
+                    {
+                        var command = new SqliteCommand(cmd,connection);
+                        command.ExecuteNonQuery();
+                    }
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
-                    return false;
+                    return new MessageDialog("Input failed, Did you input all required fields?");
                 }
-                return true;
+                return new MessageDialog("Input Recorded Successful");
             }
             else
             {
-                return false;
+                return new MessageDialog("You dont have the permisson for that");
             }
 
         }
