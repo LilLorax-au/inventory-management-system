@@ -122,13 +122,13 @@ namespace inventory_management_system
             DeleteButton.Background = colorSetBrush;
 
             OrderIdTextBox.IsEnabled = true;
-            CustomerIdTextBox.IsEnabled = true;
-            ProductIdOneTextBox.IsEnabled = true;
-            ProductIdTwoTextBox.IsEnabled = true;
-            ProductIdThreeTextBox.IsEnabled = true;
-            QuantityOneTextBox.IsEnabled = true;
-            QuantityTwoTextBox.IsEnabled = true;
-            QuantityThreeTextBox.IsEnabled = true;
+            CustomerIdTextBox.IsEnabled = false;
+            ProductIdOneTextBox.IsEnabled = false;
+            ProductIdTwoTextBox.IsEnabled = false;
+            ProductIdThreeTextBox.IsEnabled = false;
+            QuantityOneTextBox.IsEnabled = false;
+            QuantityTwoTextBox.IsEnabled = false;
+            QuantityThreeTextBox.IsEnabled = false;
 
             buttonState = "del";
 

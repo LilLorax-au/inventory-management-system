@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,6 +31,14 @@ namespace inventory_management_system
         SolidColorBrush colorUnsetBrush;
         DatabaseService database;
         String buttonState;
+
+        private struct inputBlock
+        {
+            public String id;
+            public String name;
+            public String cost;
+            public String count;
+        }
         public ProductPage()
         {
             this.InitializeComponent();
@@ -118,25 +128,71 @@ namespace inventory_management_system
 
             UpdateOutput("Input Product ID to delete product, this cannot be undone.");
         }
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        private async void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+            String statment = "";
+            String statmentType = "";
+
+            inputBlock input;
+            input.id = Stripper(ProductIdTextBox.Text);
+            input.name = Stripper(ProductNameTextBox.Text);
+            input.cost = Stripper(ProductCostTextBox.Text);
+            input.count = Stripper(ProductQuantityTextBox.Text);
+
             switch (buttonState)
             {
                 case "add":
-
+                    statment = $"INSERT INTO products (product_name, product_cost, product_quantity) VALUES ('{input.name}','{input.cost}',{input.count});";
+                    statmentType = "insert";
                     break;
 
                 case "update":
-
+                    statment = $"UPDATE products SET product_name = '{input.name}', product_cost = '{input.cost}', product_quantity = '{input.count}' WHERE customer_id = '{input.id}' ";
+                    statmentType = "update";
+                    if (!(database.CheckId(input.id, "products"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
 
                 case "show":
-
+                    statment = $"SELECT * FROM products WHERE product_id = '{input.id}'";
+                    statmentType = "select";
                     break;
 
                 case "del":
-
+                    statment = $"DELETE FROM products WHERE product_id = '{input.id}'";
+                    statmentType = "delete";
+                    if (!(database.CheckId(input.id, "products"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
+            }
+
+            if (statmentType != "select")
+            {
+                var popUp = database.PassStatment(App.localUser, statment, statmentType);
+                await popUp.ShowAsync();
+            }
+            else
+            {
+                database.connection.Open();
+                var command = new SqliteCommand(statment, database.connection);
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var id = reader.GetInt32(0);
+                    var name = reader.GetString(1);
+                    var email = reader.GetString(2);
+                    var phone = reader.GetInt32(3);
+
+                    var popUp = new MessageDialog($"ID: {id}\nName: {name}\nEmail: {email}\nPhone: {phone}");
+                    await popUp.ShowAsync();
+                }
+                else
+                {
+                    var popUp = new MessageDialog("Nothing found");
+                    await popUp.ShowAsync();
+
+                }
+
+                database.connection.Close();
             }
 
         }
@@ -157,6 +213,18 @@ namespace inventory_management_system
         private void UpdateOutput(String textToOutput)
         {
             OutputTextBox.Text = textToOutput;
+        }
+        private String Stripper(String input)
+        {
+            if (input == "") return input;
+
+            char[] filter = { '\'', ' ', '"', '/', ':', '*', '#', '%', '_', '\\', '-' };
+            foreach (char c in filter)
+            {
+                input = input.Replace(c.ToString(), "");
+            }
+
+            return input;
         }
         private void ARGBUnpacker()
         {

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Security.Cryptography.Core;
 using Windows.UI.Popups;
 
 
@@ -16,7 +17,7 @@ namespace inventory_management_system
         private const String DATABASE_PATH = "Data Source = cme_inventory.db";
 
         private static DatabaseService instance;
-        private SqliteConnection connection;
+        public SqliteConnection connection;
         private String sqlSchema;
         public String testString;
 
@@ -101,12 +102,10 @@ namespace inventory_management_system
             return schema;
         }
 
-        public MessageDialog PassStatment(User user, String statments)
+        public MessageDialog PassStatment(User user , String statments, String statmentType)
         {
 
-            String permissonRequiered = User.PERMISSONS_POSSIBLE[1];
-            
-            if (user.checkPermisson(permissonRequiered))
+            if (user.checkPermisson(statmentType))
             {
                 try
                 {
@@ -114,15 +113,16 @@ namespace inventory_management_system
                     String[] commands = statments.Split(";");
                     foreach (String cmd in commands)
                     {
-                        var command = new SqliteCommand(cmd,connection);
+                        var command = new SqliteCommand(cmd, connection);
                         command.ExecuteNonQuery();
                     }
+                    connection.Close();
                 }
-                catch (Exception )
+                catch (Exception e)
                 {
-                    return new MessageDialog("Input failed, Did you input all required fields?");
+                    return new MessageDialog("Input failed, Did you input all required fields?" + e);
                 }
-                return new MessageDialog("Input Recorded Successful");
+                return new MessageDialog("Input Successful");
             }
             else
             {
@@ -130,5 +130,33 @@ namespace inventory_management_system
             }
 
         }
+        public bool CheckId(String id, String table)
+        {
+            String statment = $"SELECT * FROM {table} WHERE {table.Substring(0, table.Length-1)}_id = '{id}';";
+            int? checkValue = null;
+            bool found;
+
+            connection.Open();
+
+            var command = new SqliteCommand(statment, connection);
+            var reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                checkValue = reader.GetInt32(0);
+            }
+            if (checkValue != null)
+            {
+                found = true;
+            }
+            else
+            {
+                found = false;
+            }
+
+            connection.Close();
+            return found;
+        }
+
     }
 }
