@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,6 +31,18 @@ namespace inventory_management_system
         SolidColorBrush colorUnsetBrush;
         DatabaseService database;
         String buttonState;
+
+        private struct inputBlock
+        {
+            public String order_id;
+            public String customer_id;
+            public String product_id_1;
+            public String product_id_2;
+            public String product_id_3;
+            public String product_count_1;
+            public String product_count_2;
+            public String product_count_3;
+        }
         public OrdersPage()
         {
             this.InitializeComponent();
@@ -90,7 +104,7 @@ namespace inventory_management_system
 
             buttonState = "update";
 
-            UpdateOutput("Input all fields, Products you want removed; set the quanity to 0");
+            UpdateOutput("Input all fields");
         }
 
         private void ShowButton_Click(object sender, RoutedEventArgs e)
@@ -134,25 +148,84 @@ namespace inventory_management_system
 
             UpdateOutput("Input Order ID to delete Order, this cannot be undone.");
         }
-        private void EnterButton_Click(object sender, RoutedEventArgs e)
+        private async void EnterButton_Click(object sender, RoutedEventArgs e)
         {
+
+            String statment = "";
+            String statmentType = "";
+            int orderIdValidator;
+
+            inputBlock input;
+            input.order_id = OrderIdTextBox.Text;
+            input.customer_id = CustomerIdTextBox.Text;
+            input.product_id_1 = ProductIdOneTextBox.Text;
+            input.product_id_2 = ProductIdTwoTextBox.Text;
+            input.product_id_3 = ProductIdThreeTextBox.Text;
+            input.product_count_1 = QuantityOneTextBox.Text;
+            input.product_count_2 = QuantityTwoTextBox.Text;
+            input.product_count_3 = QuantityThreeTextBox.Text;
+
             switch (buttonState)
             {
                 case "add":
-
+                    statment = $"INSERT INTO orders (customer_id, order_cost) VALUES ('{input.customer_id}','{0}');";
+                    statmentType = "insert";
+                    database.PassStatment(App.localUser, statment, statmentType);
+                    orderIdValidator = database.GetLastID();
+                    statment = $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_1}','{input.product_count_1}');";
+                    statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_2}','{input.product_count_2}');";
+                    statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_3}','{input.product_count_3}');";
+                    statment += $"UPDATE orders SET order_cost"
                     break;
 
                 case "update":
-
+                    statment = $"UPDATE customers SET customer_name = '{input.name}', customer_email = '{input.email}', customer_phone = '{input.phone}' WHERE customer_id = '{input.id}' ";
+                    statmentType = "update";
+                    if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
 
                 case "show":
-
+                    statment = $"SELECT * FROM customers WHERE customer_id = '{input.id}'";
+                    statmentType = "select";
                     break;
 
                 case "del":
-
+                    statment = $"DELETE FROM customers WHERE customer_id = '{input.id}'";
+                    statmentType = "delete";
+                    if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
+            }
+
+            if (statmentType != "select")
+            {
+                var popUp = database.PassStatment(App.localUser, statment, statmentType);
+                await popUp.ShowAsync();
+            }
+            else
+            {
+                database.connection.Open();
+                var command = new SqliteCommand(statment, database.connection);
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var id = reader.GetInt32(0);
+                    var name = reader.GetString(1);
+                    var email = reader.GetString(2);
+                    var phone = reader.GetInt32(3);
+
+                    var popUp = new MessageDialog($"ID: {id}\nName: {name}\nEmail: {email}\nPhone: {phone}");
+                    await popUp.ShowAsync();
+                }
+                else
+                {
+                    var popUp = new MessageDialog("Nothing found");
+                    await popUp.ShowAsync();
+
+                }
+
+                database.connection.Close();
+
             }
 
         }
@@ -185,6 +258,17 @@ namespace inventory_management_system
             this.colorUnsetBrush = new SolidColorBrush(Color.FromArgb(App.buttonUnset.A, App.buttonUnset.R, App.buttonUnset.G, App.buttonUnset.B));
         }
 
+        private String Stripper(String input)
+        {
+            if (input == "") return input;
 
+            char[] filter = { '\'', ' ', '"', '/', ':', '*', '#', '%', '_', '\\', '-' };
+            foreach (char c in filter)
+            {
+                input = input.Replace(c.ToString(), "");
+            }
+
+            return input;
+        }
     }
 }

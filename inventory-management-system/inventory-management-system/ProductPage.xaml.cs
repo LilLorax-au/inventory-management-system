@@ -179,10 +179,10 @@ namespace inventory_management_system
                 {
                     var id = reader.GetInt32(0);
                     var name = reader.GetString(1);
-                    var email = reader.GetString(2);
-                    var phone = reader.GetInt32(3);
+                    var cost = reader.GetFloat(2);
+                    var quantity = reader.GetInt32(3);
 
-                    var popUp = new MessageDialog($"ID: {id}\nName: {name}\nEmail: {email}\nPhone: {phone}");
+                    var popUp = new MessageDialog($"ID: {id}\nName: {name}\nCost: {cost}\nQuantity: {quantity}");
                     await popUp.ShowAsync();
                 }
                 else

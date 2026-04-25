@@ -158,5 +158,16 @@ namespace inventory_management_system
             return found;
         }
 
+        public int GetLastID()
+        {
+            String statment = "SELECT last_insert_rowid();";
+            connection.Open();
+
+            var commad = new SqliteCommand(statment, connection);
+            var reader = commad.ExecuteReader();
+
+            return   (reader.Read()) ? reader.GetInt32(0) : 0;
+        }
+
     }
 }
