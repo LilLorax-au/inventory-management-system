@@ -166,18 +166,18 @@ namespace inventory_management_system
                     break;
 
                 case "update":
-                    statment = $"UPDATE customers SET customer_name = '{input.name}', customer_email = '{input.email}', customer_phone = '{input.phone}' WHERE customer_id = '{input.id}' ";
+                    statment = $"UPDATE customers SET customer_name = '{input.name}', customer_email = '{input.email}', customer_phone = '{input.phone}' WHERE customer_id = '{input.id}' ;";
                     statmentType = "update";
                     if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
 
                 case "show":
-                    statment = $"SELECT * FROM customers WHERE customer_id = '{input.id}'";
+                    statment = $"SELECT * FROM customers WHERE customer_id = '{input.id}';";
                     statmentType = "select";
                     break;
 
                 case "del":
-                    statment = $"DELETE FROM customers WHERE customer_id = '{input.id}'";
+                    statment = $"DELETE FROM customers WHERE customer_id = '{input.id}';";
                     statmentType = "delete";
                     if (!(database.CheckId(input.id, "customers"))) {await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;

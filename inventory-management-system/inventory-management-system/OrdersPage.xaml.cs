@@ -175,26 +175,54 @@ namespace inventory_management_system
                     statment = $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_1}','{input.product_count_1}');";
                     statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_2}','{input.product_count_2}');";
                     statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_3}','{input.product_count_3}');";
-                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE product_id = '{input.product_id_1}'));";
-                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE product_id = '{input.product_id_2}'));";
-                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE product_id = '{input.product_id_3}'));";
+                    statment += $"UPDATE orders SET order_cost = ( (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE products.product_id = '{input.product_id_1}'));";
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE products.product_id = '{input.product_id_2}'));";
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE products.product_id = '{input.product_id_3}'));";
                     break;
 
                 case "update":
-                    //statment = $"UPDATE customers SET customer_name = '{input.name}', customer_email = '{input.email}', customer_phone = '{input.phone}' WHERE customer_id = '{input.id}' ";
-                    //statmentType = "update";
-                    //if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
+                    if (!(database.CheckId(input.order_id, "orders"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
+                    if (!(database.CheckId(input.customer_id, "orders"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
+
+                    statment = $"SELECT product_id FROM products_orders WHERE order_id = '{input.order_id}' ORDER BY product_id DESC;";
+
+                    database.connection.Open();
+
+                    var command = new SqliteCommand(statment, database.connection);
+                    var reader = command.ExecuteReader();
+
+                    reader.Read();
+                    statment = $"UPDATE products_orders SET product_id = '{input.product_id_1}', product_order_quantity = '{input.product_count_1}' WHERE order_id = '{input.order_id}' AND product_id = '{reader.GetInt32(0)}';";
+                    reader.Read();
+                    statment += $"UPDATE products_orders SET product_id = '{input.product_id_2}', product_order_quantity = '{input.product_count_2}' WHERE order_id = '{input.order_id}' AND product_id = '{reader.GetInt32(0)}';";
+                    reader.Read();
+                    statment += $"UPDATE products_orders SET product_id = '{input.product_id_3}', product_order_quantity = '{input.product_count_3}' WHERE order_id = '{input.order_id}' AND product_id = '{reader.GetInt32(0)}';";
+                    statment += $"UPDATE orders SET order_cost = ( (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE products.product_id = '{input.product_id_1}'));";
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE products.product_id = '{input.product_id_2}'));";
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE products.product_id = '{input.product_id_3}'));";
+
+                    statmentType = "update";
+
+                    database.connection.Close();
                     break;
 
                 case "show":
-                    //statment = $"SELECT * FROM customers WHERE customer_id = '{input.id}'";
-                    //statmentType = "select";
+                    statment = $"SELECT orders.order_id,customers.customer_name,customers.customer_email,products.product_id,products.product_name,products.product_cost,products_orders.product_order_quantity " +
+                        $"FROM products " +
+                        $"INNER JOIN products_orders ON products.product_id = products_orders.product_id " +
+                        $"INNER JOIN orders ON products_orders.order_id = orders.order_id " +
+                        $"INNER JOIN customers ON customers.customer_id = orders.customer_id " +
+                        $"WHERE orders.order_id = '{input.order_id}';";
+                    statmentType = "select";
                     break;
 
                 case "del":
-                    //statment = $"DELETE FROM customers WHERE customer_id = '{input.id}'";
-                    //statmentType = "delete";
-                    //if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
+                    statment = $"DELETE FROM products_orders " +
+                        $"WHERE order_id = '{input.order_id}';";
+                    statment += $"DELETE FROM orders " +
+                        $"WHERE order_id = '{input.order_id}';";
+                    statmentType = "delete";
+                    if (!(database.CheckId(input.order_id, "orders"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
             }
 
@@ -208,22 +236,36 @@ namespace inventory_management_system
                 database.connection.Open();
                 var command = new SqliteCommand(statment, database.connection);
                 var reader = command.ExecuteReader();
+                
 
-                if (reader.Read())
+                String stringBuilder = "";
+
+                for (int i = 0; reader.Read(); i++)
                 {
-                    var id = reader.GetInt32(0);
-                    var name = reader.GetString(1);
-                    var email = reader.GetString(2);
-                    var phone = reader.GetInt32(3);
+                    if (i != 0)
+                    {
+                        stringBuilder += "\n" + reader.GetString(3) + " Product Name: " + reader.GetString(4);
+                        stringBuilder += "\n" + reader.GetString(3) + " Product Cost: " + reader.GetString(5);
+                        stringBuilder += "\n" + reader.GetString(3) + " Product Cost: " + reader.GetString(6);
+                    }
+                    else
+                    {
+                        stringBuilder += "Order ID: " + reader.GetString(0);
+                        stringBuilder += "\nCustomer Name: " + reader.GetString(1);
+                        stringBuilder += "\nCustomer Email: " + reader.GetString(2);
+                    }
 
-                    var popUp = new MessageDialog($"ID: {id}\nName: {name}\nEmail: {email}\nPhone: {phone}");
+
+                }
+                if (!string.IsNullOrEmpty(stringBuilder))
+                {
+                    var popUp = new MessageDialog(stringBuilder);
                     await popUp.ShowAsync();
                 }
                 else
                 {
                     var popUp = new MessageDialog("Nothing found");
                     await popUp.ShowAsync();
-
                 }
 
                 database.connection.Close();

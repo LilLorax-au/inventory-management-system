@@ -59,15 +59,15 @@ namespace inventory_management_system
         private String SchemeBuilder()
         {
             String schema;
+                //DROP TABLE IF EXISTS products_orders;
+                //DROP TABLE IF EXISTS orders;
+                //DROP TABLE IF EXISTS products;
+                //DROP TABLE IF EXISTS customers;
 
             schema = @"
 
                 PRAGMA foreign_keys = ON;
 
-                DROP TABLE IF EXISTS products_orders;
-                DROP TABLE IF EXISTS orders;
-                DROP TABLE IF EXISTS products;
-                DROP TABLE IF EXISTS customers;
                         
                 CREATE TABLE IF NOT EXISTS products(
                 product_id INTEGER PRIMARY KEY NOT NULL,
@@ -167,8 +167,12 @@ namespace inventory_management_system
             var commad = new SqliteCommand(statment, connection);
             var reader = commad.ExecuteReader();
 
+
+            var readerValue =  (reader.Read()) ? reader.GetInt32(0) : 0;
+
             connection.Close();
-            return   (reader.Read()) ? reader.GetInt32(0) : 0;
+
+            return readerValue;
         }
 
     }
