@@ -120,6 +120,7 @@ namespace inventory_management_system
                 }
                 catch (Exception e)
                 {
+                    connection.Close();
                     return new MessageDialog("Input failed, Did you input all required fields?" + e);
                 }
                 return new MessageDialog("Input Successful");
@@ -166,6 +167,7 @@ namespace inventory_management_system
             var commad = new SqliteCommand(statment, connection);
             var reader = commad.ExecuteReader();
 
+            connection.Close();
             return   (reader.Read()) ? reader.GetInt32(0) : 0;
         }
 

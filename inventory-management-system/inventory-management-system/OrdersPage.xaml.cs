@@ -175,24 +175,26 @@ namespace inventory_management_system
                     statment = $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_1}','{input.product_count_1}');";
                     statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_2}','{input.product_count_2}');";
                     statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_3}','{input.product_count_3}');";
-                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (t1.product_cost * t2.product_order_quantity ) FROM (SELECT product_cost FROM products) AS t1 INNER JOIN)  );";
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE product_id = '{input.product_id_1}'));";
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE product_id = '{input.product_id_2}'));";
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (products.product_cost * products_orders.product_order_quantity ) FROM products INNER JOIN products_orders ON products.product_id = products_orders.product_id WHERE product_id = '{input.product_id_3}'));";
                     break;
 
                 case "update":
-                    statment = $"UPDATE customers SET customer_name = '{input.name}', customer_email = '{input.email}', customer_phone = '{input.phone}' WHERE customer_id = '{input.id}' ";
-                    statmentType = "update";
-                    if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
+                    //statment = $"UPDATE customers SET customer_name = '{input.name}', customer_email = '{input.email}', customer_phone = '{input.phone}' WHERE customer_id = '{input.id}' ";
+                    //statmentType = "update";
+                    //if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
 
                 case "show":
-                    statment = $"SELECT * FROM customers WHERE customer_id = '{input.id}'";
-                    statmentType = "select";
+                    //statment = $"SELECT * FROM customers WHERE customer_id = '{input.id}'";
+                    //statmentType = "select";
                     break;
 
                 case "del":
-                    statment = $"DELETE FROM customers WHERE customer_id = '{input.id}'";
-                    statmentType = "delete";
-                    if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
+                    //statment = $"DELETE FROM customers WHERE customer_id = '{input.id}'";
+                    //statmentType = "delete";
+                    //if (!(database.CheckId(input.id, "customers"))) { await new MessageDialog("ID not found").ShowAsync(); return; }
                     break;
             }
 
