@@ -64,10 +64,10 @@ namespace inventory_management_system
 
                 PRAGMA foreign_keys = ON;
 
+                DROP TABLE IF EXISTS products_orders;
+                DROP TABLE IF EXISTS orders;
                 DROP TABLE IF EXISTS products;
                 DROP TABLE IF EXISTS customers;
-                DROP TABLE IF EXISTS orders;
-                DROP TABLE IF EXISTS products_orders;
                         
                 CREATE TABLE IF NOT EXISTS products(
                 product_id INTEGER PRIMARY KEY NOT NULL,
