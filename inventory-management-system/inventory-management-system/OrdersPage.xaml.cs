@@ -175,7 +175,7 @@ namespace inventory_management_system
                     statment = $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_1}','{input.product_count_1}');";
                     statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_2}','{input.product_count_2}');";
                     statment += $@"INSERT INTO products_orders (order_id, product_id, product_order_quantity) VALUES ('{orderIdValidator}','{input.product_id_3}','{input.product_count_3}');";
-                    statment += $"UPDATE orders SET order_cost"
+                    statment += $"UPDATE orders SET order_cost = (order_cost + (SELECT (t1.product_cost * t2.product_order_quantity ) FROM (SELECT product_cost FROM products) AS t1 INNER JOIN)  );";
                     break;
 
                 case "update":
