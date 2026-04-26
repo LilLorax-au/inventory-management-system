@@ -8,8 +8,8 @@
 
   <Identity
     Name="8b46481e-ff2e-4f80-865e-fb4bc5c44319"
-    Publisher="CN=Isaac"
-    Version="1.0.0.0" />
+    Publisher="CN=Isaac Brown"
+    Version="1.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="8b46481e-ff2e-4f80-865e-fb4bc5c44319" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

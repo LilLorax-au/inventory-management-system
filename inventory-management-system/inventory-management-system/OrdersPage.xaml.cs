@@ -244,6 +244,7 @@ namespace inventory_management_system
                 {
                     if (i != 0)
                     {
+                        stringBuilder += "\n------------------------------------------";
                         stringBuilder += "\n" + reader.GetString(3) + " Product Name: " + reader.GetString(4);
                         stringBuilder += "\n" + reader.GetString(3) + " Product Cost: " + reader.GetString(5);
                         stringBuilder += "\n" + reader.GetString(3) + " Product Cost: " + reader.GetString(6);
@@ -253,6 +254,10 @@ namespace inventory_management_system
                         stringBuilder += "Order ID: " + reader.GetString(0);
                         stringBuilder += "\nCustomer Name: " + reader.GetString(1);
                         stringBuilder += "\nCustomer Email: " + reader.GetString(2);
+                        stringBuilder += "\n------------------------------------------";
+                        stringBuilder += "\n" + reader.GetString(3) + " Product Name: " + reader.GetString(4);
+                        stringBuilder += "\n" + reader.GetString(3) + " Product Cost: " + reader.GetString(5);
+                        stringBuilder += "\n" + reader.GetString(3) + " Product Cost: " + reader.GetString(6);
                     }
 
 

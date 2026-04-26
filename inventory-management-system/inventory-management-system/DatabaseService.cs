@@ -63,8 +63,8 @@ namespace inventory_management_system
                 //DROP TABLE IF EXISTS orders;
                 //DROP TABLE IF EXISTS products;
                 //DROP TABLE IF EXISTS customers;
-
             schema = @"
+
 
                 PRAGMA foreign_keys = ON;
 
